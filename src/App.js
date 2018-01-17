@@ -11,18 +11,17 @@ class App extends Component {
     super();
     this.state = {
       projects: [],
-      todos:[]
+      users:[]
     }
   }
 
-  getTodos(){
+  getTodos(text){
     $.ajax({
-      url: 'https://jsonplaceholder.typicode.com/todos',
+      url: 'https://api.github.com/search/users?q='+text,
       dataType:'json',
       cache: false,
       success: function(data){
-        this.setState({todos: data}, function(){
-          console.log(this.state);
+        this.setState({users: data}, function(){
         });
       }.bind(this),
       error: function(xhr, status, err){
@@ -53,11 +52,9 @@ class App extends Component {
 
   componentWillMount(){
     this.getProjects();
-    this.getTodos();
   }
 
   componentDidMount(){
-    this.getTodos();
   }
 
   handleAddProject(project){
@@ -73,13 +70,17 @@ class App extends Component {
     this.setState({projects:projects});
   }
 
+  onKeyPress(text){
+    this.getTodos(text);
+  }
+
   render() {
     return (
       <div className="App">
-        <AddProject addProject={this.handleAddProject.bind(this)} />
-        <Projects projects={this.state.projects} onDelete={this.handleDeleteProject.bind(this)} />
+        <AddProject addProject={this.handleAddProject.bind(this)} onKeyPress={this.onKeyPress.bind(this)}/>
+        
+        <Todos users={this.state.users} />
         <hr />
-        <Todos todos={this.state.todos} />
       </div>
     );
   }

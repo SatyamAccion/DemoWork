@@ -4,17 +4,18 @@ import TodoItem from './TodoItem';
 class Todos extends Component {
   render() {
     let todoItems;
-    if(this.props.todos){
-      todoItems = this.props.todos.map(todo => {
-        //console.log(project);
+    
+    if(this.props.users.items){
+      todoItems = this.props.users.items.map(todo => {
+        {console.log(todo.login);}
         return (
-          <TodoItem key={todo.title} todo={todo} />
+          <TodoItem key={todo.id} todo={todo} />
         );
       });
     }
     return (
-      <div className="Todos">
-        <h3>Todo List</h3>
+      <div >
+        <h3>Users List</h3>
         {todoItems}
       </div>
     );

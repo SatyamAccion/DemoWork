@@ -4,7 +4,7 @@ class TodoItem extends Component {
   render() {
     return (
       <li className="Todo">
-        <strong>{this.props.todo.title}</strong>
+        <strong>{this.props.todo.login}{console.log(this.props.todo.login)}</strong>
       </li>
     );
   }
